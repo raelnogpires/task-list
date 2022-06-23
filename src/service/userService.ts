@@ -5,13 +5,19 @@ import User from '../database/models/User';
 import { hashPassword, comparePassword } from '../utils/encrypting';
 
 import IUserService from '../@types/interfaces/userService.interface';
-import { CreateUserT, UserLoginT } from '../@types/types/user.type';
+import { CreateUserT, UserLoginT, UserT } from '../@types/types/user.type';
 
 export default class UserService implements IUserService {
   private _model;
 
   constructor() {
     this._model = User;
+  }
+
+  public async findUserByEmail(email: string): Promise<UserT | boolean> {
+    const user = await this._model.findOne({ where: { email } });
+    if (!user) return false;
+    return user;
   }
 
   public async registerUser(user: CreateUserT): Promise<void> {
