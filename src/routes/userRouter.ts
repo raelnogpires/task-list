@@ -8,6 +8,6 @@ const controller = new UserController();
 const middleware = new RegisterValidation();
 
 router
-  .post('/', middleware.validate, (req, res) => controller.registerUser(req, res));
+  .post('/register', middleware.validate, (req, res) => controller.registerUser(req, res));
 
 export default router;
