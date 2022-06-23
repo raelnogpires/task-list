@@ -11,7 +11,7 @@ export default class TaskValidation {
     status: Joi.string().required(),
   });
 
-  public async createValidation(
+  public async validateCreateTask(
     req: Request,
     res: Response,
     next: NextFunction,
