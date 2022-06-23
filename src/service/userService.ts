@@ -1,11 +1,11 @@
-import { BadRequestError } from 'restify-errors';
+import { BadRequestError, NotFoundError } from 'restify-errors';
 
 import User from '../database/models/User';
 
-import { hashPassword } from '../utils/encrypting';
+import { hashPassword, comparePassword } from '../utils/encrypting';
 
 import IUserService from '../@types/interfaces/userService.interface';
-import { CreateUserT } from '../@types/types/user.type';
+import { CreateUserT, UserLoginT } from '../@types/types/user.type';
 
 export default class UserService implements IUserService {
   private _model;
@@ -21,5 +21,13 @@ export default class UserService implements IUserService {
 
     const hash = await hashPassword(password)
     await this._model.create({ username, password: hash, email });
+  }
+
+  public async userLogin({ email, password }: UserLoginT): Promise<void> {
+    const user = await this._model.findOne({ where: { email } });
+    if (!user) throw new NotFoundError('User not found');
+
+    const checkCredentials = await comparePassword(user.password, password);
+    if (!checkCredentials) throw new BadRequestError('Invalid credentials'); 
   }
 }
