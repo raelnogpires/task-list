@@ -1,4 +1,5 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
+
 import UserService from '../service/userService';
 
 export default class UserController {
@@ -11,8 +12,13 @@ export default class UserController {
   public async registerUser(
     req: Request,
     res: Response,
-  ): Promise<Response> {
-    await this._service.registerUser(req.body);
-    return res.status(201).json({ message: 'User registered with success!' });
+    next: NextFunction,
+  ): Promise<Response | void> {
+    try {
+      await this._service.registerUser(req.body);
+      return res.status(201).json({ message: 'User registered with success!' });
+    } catch (error) {
+      return next(error);
+    }
   }
 }

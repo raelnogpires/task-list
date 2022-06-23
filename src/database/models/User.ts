@@ -23,6 +23,7 @@ User.init(
   },
   {
     sequelize: db,
+    tableName: 'users',
     timestamps: false,
   },
 );

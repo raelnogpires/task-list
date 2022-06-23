@@ -33,15 +33,9 @@ export default class RegisterValidation {
       return next(err);
     }
 
-    const emailFormatValidation = validateEmailWithRegex(req.body.email)
+    const emailFormatValidation = validateEmailWithRegex(req.body.email);
     if (!emailFormatValidation) {
       const err = new BadRequestError('"email" must be a valid email');
-      return next(err);
-    }
-
-    const userExist = await this._model.findOne({ where: { email: req.body.email } })
-    if (userExist) {
-      const err = new BadRequestError('Email already registered');
       return next(err);
     }
 
