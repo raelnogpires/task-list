@@ -7,11 +7,10 @@ import { BadRequestError } from 'restify-errors';
 const emailRegex = /\S+@\S+\.\S+/;
 const validateEmailWithRegex = (email: string) => emailRegex.test(email);
 
-export default class RegisterValidation {
+export default class LoginValidation {
   private static joi = Joi.object({
-    username: Joi.string().min(4).required(),
     email: Joi.string().required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().required(),
   });
 
   public async validate(
@@ -19,7 +18,7 @@ export default class RegisterValidation {
     _res: Response,
     next: NextFunction,
   ): Promise<void> {
-    const { error } = RegisterValidation.joi.validate(req.body);
+    const { error } = LoginValidation.joi.validate(req.body);
     if (error) {
       const err = new BadRequestError(error.message);
       return next(err);
