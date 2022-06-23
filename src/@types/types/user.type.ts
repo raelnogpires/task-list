@@ -6,3 +6,5 @@ export type UserT = {
 };
 
 export type CreateUserT = Omit<UserT, 'id'>;
+
+export type UserLoginT = Omit<UserT, 'id' | 'username'>;
