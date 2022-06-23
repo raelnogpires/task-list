@@ -1,8 +1,10 @@
+type TaskStatusT = 'Pending' | 'In progress' | 'Done';
+
 export type TaskT = {
   id: number,
   title: string,
   description?: string,
-  status: string,
+  status: TaskStatusT,
   userId: number,
 };
 
