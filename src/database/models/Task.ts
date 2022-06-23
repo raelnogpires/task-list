@@ -8,6 +8,7 @@ class Task extends Model {
   declare id: number;
   declare title: string;
   declare description: string;
+  declare status: string;
   declare userId: number;
 };
 
@@ -17,6 +18,9 @@ Task.init(
       type: STRING,
     },
     description: {
+      type: STRING,
+    },
+    status: {
       type: STRING,
     },
     userId: {
