@@ -14,7 +14,7 @@ export default class UserService implements IUserService {
     this._model = User;
   }
 
-  public async findUserByEmail(email: string): Promise<UserT | boolean> {
+  public async findUserByEmail(email: string): Promise<UserT | false> {
     const user = await this._model.findOne({ where: { email } });
     if (!user) return false;
     return user;
