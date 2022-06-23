@@ -11,5 +11,10 @@ export default class TaskController {
   public async createTask(
     req: Request,
     res: Response,
-  ): Promise<Response> {}
+  ): Promise<Response> {
+    const { userId } = req.headers;
+    const taskObj = { userId, ...req.body };
+    const task = await this._service.createTask(taskObj);
+    return res.status(201).json(task);
+  }
 }
