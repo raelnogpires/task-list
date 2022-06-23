@@ -5,3 +5,5 @@ export type TaskT = {
   status: string,
   userId: number,
 };
+
+export type CreateTaskT = Omit<TaskT, 'id'>;
