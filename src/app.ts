@@ -1,6 +1,7 @@
 import * as express from 'express';
 
 import userRouter from './routes/userRouter';
+import taskRouter from './routes/taskRouter';
 
 import errorMiddleware from './middleware/errorMiddleware';
 
@@ -38,6 +39,7 @@ export default class App {
     });
 
     this.app.use('/user', userRouter);
+    this.app.use('/task', taskRouter);
 
     this.app.use(errorMiddleware);
   }

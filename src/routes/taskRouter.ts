@@ -13,6 +13,6 @@ router
   .post('/',
   auth.validateToken,
   taskValidation.validateCreateTask,
-  (req, res) => controller.createTask(req, res));
+  (req, res, next) => controller.createTask(req, res, next));
 
 export default router;

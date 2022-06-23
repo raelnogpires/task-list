@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import jwtConfig from './config';
 
 type TokenValidateData = {
-  data: { email: string },
+  email: string,
 }
 
 export const generateToken = (email: string): string => {

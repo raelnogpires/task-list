@@ -1,17 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { UnauthorizedError } from 'restify-errors';
+
 import { verifyToken } from '../auth';
 
-import UserService from '../service/userService';
-
 export default class AuthMiddleware {
-  private _service;
-
-  constructor() {
-    this._service = new UserService();
-  }
-
   public async validateToken(
     req: Request,
     res: Response,
@@ -29,11 +22,8 @@ export default class AuthMiddleware {
       return next(err);
     }
 
-    const { data } = auth;
-    const user = await this._service.findUserByEmail(data.email);
-    if (user) {
-      req.headers.userId = `${user.id}`;
-    }
+    const { email } = auth;
+    req.headers.userEmail = `${email}`;
 
     return next();
   }
