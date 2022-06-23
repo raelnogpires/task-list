@@ -21,4 +21,10 @@ export default class UserController {
       return next(error);
     }
   }
+
+  public async userLogin(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response | void> {}
 }
