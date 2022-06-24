@@ -1,7 +1,10 @@
+import ITaskService from '../@types/interfaces/taskService.interface';
+
 import { CreateTaskT, TaskT } from '../@types/types/task.type';
+
 import Task from '../database/models/Task';
 
-export default class TaskService {
+export default class TaskService implements ITaskService {
   private _model;
 
   constructor() {
