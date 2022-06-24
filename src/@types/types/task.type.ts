@@ -9,3 +9,5 @@ export type TaskT = {
 };
 
 export type CreateTaskT = Omit<TaskT, 'id'>;
+
+export type UpdateTaskT = Omit<TaskT, 'userId'>;
