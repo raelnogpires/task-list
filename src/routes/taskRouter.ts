@@ -15,4 +15,9 @@ router
   taskValidation.validateCreateTask,
   (req, res, next) => controller.createTask(req, res, next));
 
+router
+  .get('/',
+  auth.validateToken,
+  (req, res, next) => controller.getUserTasks(req, res, next));
+
 export default router;
