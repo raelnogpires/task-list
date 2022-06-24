@@ -8,6 +8,7 @@
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "prestart": "npm run build && npm run db:reset",
     "start": "node ./build/server.js",
+    "lint": "eslint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -30,6 +31,7 @@
     "@types/node": "^18.0.0",
     "@types/restify-errors": "^4.3.4",
     "@types/sequelize": "^4.28.13",
+    "eslint": "^8.18.0",
     "sequelize-cli": "^6.4.1",
     "typescript": "^4.7.4"
   }
