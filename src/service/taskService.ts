@@ -12,4 +12,9 @@ export default class TaskService {
     const newTask = await this._model.create(task);
     return newTask;
   }
+
+  public async getUserTasks(userId: number): Promise<TaskT[]> {
+    const tasks = await this._model.findAll({ where: { userId } });
+    return tasks;
+  }
 }
