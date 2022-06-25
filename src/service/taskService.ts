@@ -24,8 +24,8 @@ export default class TaskService implements ITaskService {
   }
 
   public async editTask({ id, title, description, status }: UpdateTaskT): Promise<void> {
-    const updated = this._model.update({ title, description, status }, { where: { id } });
-    if (!updated) throw new NotFoundError('Task not found');
+    const updated = await this._model.update({ title, description, status }, { where: { id } });
+    if (!updated[0]) throw new NotFoundError('Task not found');
   }
 
   public async deleteTask(id: number): Promise<void> {
