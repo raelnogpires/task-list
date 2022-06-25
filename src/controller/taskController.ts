@@ -60,21 +60,29 @@ export default class TaskController {
   public async editTask(
     req: Request,
     res: Response,
-  ): Promise<Response> {
-    const { id } = req.params;
-
-    const taskObj = { id: parseInt(id), ...req.body };
-    await this._taskService.editTask(taskObj);
-    return res.status(200).json({ message: 'Task updated with success' });
+    next: NextFunction,
+  ): Promise<Response | void> {
+    try {
+      const { id } = req.params;
+      const taskObj = { id: parseInt(id), ...req.body };
+      await this._taskService.editTask(taskObj);
+      return res.status(200).json({ message: 'Task updated with success' });
+    } catch (error) {
+      return next(error);
+    }
   }
 
   public async deleteTask(
     req: Request,
     res: Response,
-  ): Promise<Response> {
-    const { id } = req.params;
-
-    await this._taskService.deleteTask(parseInt(id));
-    return res.status(200).json({ message: 'Task deleted with success' });
+    next: NextFunction,
+  ): Promise<Response | void> {
+    try {
+      const { id } = req.params;
+      await this._taskService.deleteTask(parseInt(id));
+      return res.status(200).json({ message: 'Task deleted with success' });
+    } catch (error) {
+      return next(error);
+    }
   }
 }

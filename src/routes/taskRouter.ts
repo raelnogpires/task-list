@@ -24,11 +24,11 @@ router
   .put('/:id',
   auth.validateToken,
   taskValidation.validateTask,
-  (req, res) => controller.editTask(req, res));
+  (req, res, next) => controller.editTask(req, res, next));
 
 router
   .delete('/:id',
   auth.validateToken,
-  (req, res) => controller.deleteTask(req, res));
+  (req, res, next) => controller.deleteTask(req, res, next));
 
 export default router;
