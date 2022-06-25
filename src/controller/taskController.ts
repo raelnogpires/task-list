@@ -60,7 +60,6 @@ export default class TaskController {
   public async editTask(
     req: Request,
     res: Response,
-    next: NextFunction,
   ): Promise<Response> {
     const { id } = req.params;
 

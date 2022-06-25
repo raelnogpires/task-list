@@ -24,6 +24,6 @@ router
   .put('/:id',
   auth.validateToken,
   taskValidation.validateTask,
-  (req, res, next) => controller.editTask(req, res, next));
+  (req, res) => controller.editTask(req, res));
 
 export default router;
