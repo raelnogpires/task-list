@@ -24,4 +24,8 @@ export default class TaskService implements ITaskService {
   public async editTask({ id, title, description, status }: UpdateTaskT): Promise<void> {
     await this._model.update({ title, description, status }, { where: { id } });
   }
+
+  public async deleteTask(id: number): Promise<void> {
+    await this._model.destroy({ where: { id } });
+  }
 }
