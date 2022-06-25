@@ -56,4 +56,16 @@ export default class TaskController {
     const tasks = await this._taskService.getUserTasks(user.id);
     return res.status(200).json(tasks);
   }
+
+  public async editTask(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response> {
+    const { id } = req.params;
+
+    const taskObj = { id: parseInt(id), ...req.body };
+    await this._taskService.editTask(taskObj);
+    return res.status(200).json({ message: 'Task updated with success' });
+  }
 }
