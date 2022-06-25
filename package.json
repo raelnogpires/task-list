@@ -9,7 +9,8 @@
     "prestart": "npm run build && npm run db:reset",
     "start": "node ./build/server.js",
     "lint": "eslint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r ts-node/register ./src/tests/*$NAME*.{test,spec}.ts -t 10000 --exit",
+    "test:coverage": "nyc npm run test"
   },
   "keywords": [],
   "author": "Rael Nogueira Pires",
@@ -31,8 +32,15 @@
     "@types/node": "^18.0.0",
     "@types/restify-errors": "^4.3.4",
     "@types/sequelize": "^4.28.13",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "mocha": "^10.0.0",
+    "nyc": "^15.1.0",
     "sequelize-cli": "^6.4.1",
+    "sinon": "^14.0.0",
+    "ts-node": "^10.8.1",
     "typescript": "^4.7.4"
   }
 }
