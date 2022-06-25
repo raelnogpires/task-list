@@ -67,4 +67,14 @@ export default class TaskController {
     await this._taskService.editTask(taskObj);
     return res.status(200).json({ message: 'Task updated with success' });
   }
+
+  public async deleteTask(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const { id } = req.params;
+
+    await this._taskService.deleteTask(parseInt(id));
+    return res.status(200).json({ message: 'Task deleted with success' });
+  }
 }

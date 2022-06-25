@@ -26,4 +26,9 @@ router
   taskValidation.validateTask,
   (req, res) => controller.editTask(req, res));
 
+router
+  .delete('/:id',
+  auth.validateToken,
+  (req, res) => controller.deleteTask(req, res));
+
 export default router;
