@@ -20,9 +20,11 @@ import User from '../database/models/User';
 import {
   mockCompleteUser,
   mockInvalidEmailUser,
+  mockInvalidPassword,
   mockInvalidUsername,
   mockUserRegister,
   mockWithoutEmailUser,
+  mockWithoutPassword,
   mockWithoutUsername,
 } from './mocks/user.mocks';
 
@@ -76,16 +78,6 @@ describe('01 - Tests user register endpoint. POST /user/register', () => {
   });
 
   describe(`When email isn't present at req.body or email's invalid`, () => {
-    beforeEach(() => {
-      userServiceStub = sinon
-        .stub(UserService.prototype, 'registerUser')
-        .resolves();
-    });
-
-    afterEach(() => {
-      userServiceStub.restore();
-    });
-
     it(`email isn't present - returns status 400 and error message`, async () => {
       const res = await chai
         .request(app)
@@ -108,16 +100,6 @@ describe('01 - Tests user register endpoint. POST /user/register', () => {
   });
 
   describe(`When username isn't present at req.body or it's smaller than 4 characters`, () => {
-    beforeEach(() => {
-      userServiceStub = sinon
-        .stub(UserService.prototype, 'registerUser')
-        .resolves();
-    });
-
-    afterEach(() => {
-      userServiceStub.restore();
-    });
-
     it(`username isn't present - returns status 400 and error message`, async () => {
       const res = await chai
       .request(app)
@@ -136,6 +118,28 @@ describe('01 - Tests user register endpoint. POST /user/register', () => {
 
       expect(res.status).to.equal(400);
       expect(res.body).to.deep.equal({ message: '"username" length must be at least 4 characters long' });
+    });
+  });
+
+  describe(`When password isn't present at req.body or it's smaller than 6 characters`, () => {
+    it(`password isn't present - returns status 400 and error message`, async () => {
+      const res = await chai
+        .request(app)
+        .post('/user/register')
+        .send(mockWithoutPassword);
+
+      expect(res.status).to.equal(400);
+      expect(res.body).to.deep.equal({ message: '"password" is required' });
+    });
+
+    it(`invalid passowrd - returns status 400 and error message`, async () => {
+      const res = await chai
+        .request(app)
+        .post('/user/register')
+        .send(mockInvalidPassword);
+
+      expect(res.status).to.equal(400);
+      expect(res.body).to.deep.equal({ message: '"password" length must be at least 6 characters long' });
     });
   });
 });

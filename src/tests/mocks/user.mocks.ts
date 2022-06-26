@@ -32,3 +32,14 @@ export const mockInvalidUsername = {
   email: 'rael@ebytr.com',
   password: 'cleanenergy',
 }
+
+export const mockWithoutPassword = {
+  username: 'rael',
+  email: 'rael@ebytr.com',
+}
+
+export const mockInvalidPassword = {
+  username: 'rael',
+  email: 'rael@ebytr.com',
+  password: 'a',
+}
