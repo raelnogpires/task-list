@@ -17,7 +17,14 @@ import UserService from '../service/userService';
 
 import User from '../database/models/User';
 
-import { mockCompleteUser, mockInvalidEmailUser, mockUserRegister, mockWithoutEmailUser } from './mocks/user.mocks';
+import {
+  mockCompleteUser,
+  mockInvalidEmailUser,
+  mockInvalidUsername,
+  mockUserRegister,
+  mockWithoutEmailUser,
+  mockWithoutUsername,
+} from './mocks/user.mocks';
 
 describe('01 - Tests user register endpoint. POST /user/register', () => {
   let userServiceStub: sinon.SinonStub;
@@ -97,6 +104,38 @@ describe('01 - Tests user register endpoint. POST /user/register', () => {
 
       expect(res.status).to.equal(400);
       expect(res.body).to.deep.equal({ message: '"email" must be a valid email' });
+    });
+  });
+
+  describe(`When username isn't present at req.body or it's smaller than 4 characters`, () => {
+    beforeEach(() => {
+      userServiceStub = sinon
+        .stub(UserService.prototype, 'registerUser')
+        .resolves();
+    });
+
+    afterEach(() => {
+      userServiceStub.restore();
+    });
+
+    it(`username isn't present - returns status 400 and error message`, async () => {
+      const res = await chai
+      .request(app)
+      .post('/user/register')
+      .send(mockWithoutUsername);
+
+      expect(res.status).to.equal(400);
+      expect(res.body).to.deep.equal({ message: '"username" is required' });
+    });
+
+    it('invalid username - returns status 400 and error message', async () => {
+      const res = await chai
+        .request(app)
+        .post('/user/register')
+        .send(mockInvalidUsername);
+
+      expect(res.status).to.equal(400);
+      expect(res.body).to.deep.equal({ message: '"username" length must be at least 4 characters long' });
     });
   });
 });

@@ -21,3 +21,14 @@ export const mockInvalidEmailUser = {
   email: 'devzinho',
   password: 'cleanenergy',
 }
+
+export const mockWithoutUsername = {
+  email: 'rael@ebytr.com',
+  password: 'cleanenergy',
+}
+
+export const mockInvalidUsername = {
+  username: 'a',
+  email: 'rael@ebytr.com',
+  password: 'cleanenergy',
+}
