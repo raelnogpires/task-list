@@ -16,6 +16,7 @@
   "author": "Rael Nogueira Pires",
   "license": "ISC",
   "dependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
