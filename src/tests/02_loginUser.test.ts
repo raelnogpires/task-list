@@ -17,7 +17,13 @@ import * as encrypt from '../utils/encrypting';
 
 import User from '../database/models/User';
 
-import { mockCompleteUser, mockLoginInvalidEmail, mockLoginWithoutEmail, mockLoginWithoutPass, mockUserLogin } from './mocks/user.mocks';
+import {
+  mockCompleteUser,
+  mockLoginInvalidEmail,
+  mockLoginWithoutEmail,
+  mockLoginWithoutPass,
+  mockUserLogin,
+} from './mocks/user.mocks';
 
 describe('02 - Tests user login endpoint. POST /user/login', () => {
   let userServiceStub: sinon.SinonStub;
