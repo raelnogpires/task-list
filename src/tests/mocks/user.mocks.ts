@@ -50,3 +50,16 @@ export const mockUserLogin = {
   email: 'rael@ebytr.com',
   password: 'cleanenergy',
 };
+
+export const mockLoginWithoutEmail = {
+  password: 'cleanenergy',
+}
+
+export const mockLoginInvalidEmail = {
+  email: 'rael',
+  password: 'cleanenergy',
+}
+
+export const mockLoginWithoutPass = {
+  email: 'rael@ebytr.com',
+}

@@ -17,7 +17,7 @@ import * as encrypt from '../utils/encrypting';
 
 import User from '../database/models/User';
 
-import { mockCompleteUser, mockUserLogin } from './mocks/user.mocks';
+import { mockCompleteUser, mockLoginInvalidEmail, mockLoginWithoutEmail, mockLoginWithoutPass, mockUserLogin } from './mocks/user.mocks';
 
 describe('02 - Tests user login endpoint. POST /user/login', () => {
   let userServiceStub: sinon.SinonStub;
@@ -92,6 +92,40 @@ describe('02 - Tests user login endpoint. POST /user/login', () => {
 
       expect(res.status).to.equal(400);
       expect(res.body).to.deep.equal({ message: 'Invalid credentials' });
+    });
+  });
+
+  describe(`When email isn't present at req.body or email's invalid`, () => {
+    it(`email isn't present - returns status 400 and error message`, async () => {
+      const res = await chai
+        .request(app)
+        .post('/user/login')
+        .send(mockLoginWithoutEmail)
+
+      expect(res.status).to.equal(400);
+      expect(res.body).to.deep.equal({ message: '"email" is required' });
+    });
+
+    it('invalid email - returns status 400 and error message', async () => {
+      const res = await chai
+        .request(app)
+        .post('/user/login')
+        .send(mockLoginInvalidEmail)
+
+      expect(res.status).to.equal(400);
+      expect(res.body).to.deep.equal({ message: '"email" must be a valid email' });
+    });
+  });
+
+  describe(`When password isn't present at req.body`, () => {
+    it(`password isn't present - returns status 400 and error message`, async () => {
+      const res = await chai
+        .request(app)
+        .post('/user/login')
+        .send(mockLoginWithoutPass);
+
+      expect(res.status).to.equal(400);
+      expect(res.body).to.deep.equal({ message: '"password" is required' });
     });
   });
 });
