@@ -2,3 +2,4 @@ node_modules/
 build/
 .env
 jwt.key
+.nyc_output/
