@@ -1,3 +1,4 @@
+// REGISTER MOCKS
 export const mockUserRegister = {
   username: 'rael',
   email: 'rael@ebytr.com',
@@ -43,3 +44,9 @@ export const mockInvalidPassword = {
   email: 'rael@ebytr.com',
   password: 'a',
 }
+
+// LOGIN MOCKS
+export const mockUserLogin = {
+  email: 'rael@ebytr.com',
+  password: 'cleanenergy',
+};
