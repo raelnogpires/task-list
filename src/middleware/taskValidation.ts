@@ -13,7 +13,7 @@ export default class TaskValidation {
 
   public async validateTask(
     req: Request,
-    res: Response,
+    _res: Response,
     next: NextFunction,
   ): Promise<void> {
     const { error } = TaskValidation.joi.validate(req.body);
@@ -21,7 +21,6 @@ export default class TaskValidation {
       const err = new BadRequestError(error.message);
       return next(err);
     }
-
     return next();
   }
 }

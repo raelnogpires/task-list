@@ -11,6 +11,8 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
+import { describe } from 'mocha';
+
 import UserService from '../service/userService';
 
 import * as encrypt from '../utils/encrypting';

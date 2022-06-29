@@ -1,0 +1,13 @@
+export const mockTask = {
+  title: 'Write tests for back-end side of Ebyrt technical challenge',
+  description: '',
+  status: 'In progress',
+}
+
+export const taskReturnMock = {
+  id: 1,
+  userId: 1,
+  title: 'Write tests for back-end side of Ebyrt technical challenge',
+  description: '',
+  status: 'In progress',
+}
