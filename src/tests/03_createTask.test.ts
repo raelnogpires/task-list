@@ -17,16 +17,24 @@ import { generateToken } from '../auth';
 
 import { mockCompleteUser } from './mocks/user.mocks';
 
-import { mockTask, taskReturnMock } from './mocks/task.mocks';
-
 import TaskService from '../service/taskService';
 
 import { TaskT } from '../@types/types/task.type';
+
 import UserService from '../service/userService';
+
+import {
+  mockTask,
+  mockTaskWithoutStatus,
+  mockTaskWithoutTitle,
+  taskReturnMock,
+} from './mocks/task.mocks';
 
 describe('03 - Tests task creation endpoint. POST /task', () => {
   let taskServiceStub: sinon.SinonStub;
   let userServiceStub: sinon.SinonStub;
+
+  const token = generateToken(mockCompleteUser.email);
 
   describe('When task is created with success', () => {
     beforeEach(() => {
@@ -44,8 +52,6 @@ describe('03 - Tests task creation endpoint. POST /task', () => {
       taskServiceStub.restore();
     });
 
-    const token = generateToken(mockCompleteUser.email);
-
     it('returns status 201 and created task', async () => {
       const res = await chai
         .request(app)
@@ -59,6 +65,56 @@ describe('03 - Tests task creation endpoint. POST /task', () => {
       expect(res.body).to.have.property('title');
       expect(res.body).to.have.property('description');
       expect(res.body).to.have.property('status');
+    });
+  });
+
+  describe(`When title isn't present at req.body`, () => {
+    it('returns status 400 and error message', async () => {
+      const res = await chai
+        .request(app)
+        .post('/task')
+        .set('authorization', token)
+        .send(mockTaskWithoutTitle);
+
+      expect(res.status).to.equal(400);
+      expect(res.body).to.deep.equal({ message: '"title" is required' });
+    });
+  });
+
+  describe(`When status isn't present at req.body`, () => {
+    it('returns status 400 and error message', async () => {
+      const res = await chai
+        .request(app)
+        .post('/task')
+        .set('authorization', token)
+        .send(mockTaskWithoutStatus);
+
+      expect(res.status).to.equal(400);
+      expect(res.body).to.deep.equal({ message: '"status" is required' });
+    });
+  });
+
+  describe('If something wrong happened at req.headers.userEmail', () => {
+    beforeEach(() => {
+      userServiceStub = sinon
+        .stub(UserService.prototype, 'findUserByEmail')
+        .resolves(false);
+    });
+
+    afterEach(() => {
+      userServiceStub.restore();
+    });
+
+    it('returns status 400 and error message', async () => {
+      const res = await chai
+        .request(app)
+        .post('/task')
+        .set('authorization', token)
+        .set('userEmail', '')
+        .send(mockTask);
+
+      expect(res.status).to.equal(400);
+      expect(res.body).to.deep.equal({ message: 'User not found' });
     });
   });
 });
