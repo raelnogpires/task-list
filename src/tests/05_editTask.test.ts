@@ -14,8 +14,6 @@ const { expect } = chai;
 
 import { describe } from 'mocha';
 
-import TaskService from '../service/taskService';
-
 import Task from '../database/models/Task';
 
 import { mockCompleteUser } from './mocks/user.mocks';
@@ -24,7 +22,6 @@ import { generateToken } from '../auth';
 import { mockTaskWithoutStatus, mockTaskWithoutTitle } from './mocks/task.mocks';
 
 describe('05 - Tests updating a created task. PUT /task', () => {
-  let taskServiceStub: sinon.SinonStub;
   let taskModelStub: sinon.SinonStub;
 
   const token = generateToken(mockCompleteUser.email);
