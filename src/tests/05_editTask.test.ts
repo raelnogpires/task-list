@@ -99,4 +99,29 @@ describe('05 - Tests updating a created task. PUT /task/:id', () => {
       expect(res.body).to.deep.equal({ message: '"status" is required' });
     });
   });
+
+  describe(`When token's not provided`, () => {
+    it('returns status 401 and error message', async () => {
+      const res = await chai
+        .request(app)
+        .put('/task/1')
+        .send({ title: 'Task 1', status: 'done' });
+
+      expect(res.status).to.equal(401);
+      expect(res.body).to.deep.equal({ message: 'Token not found' });
+    });
+  });
+
+  describe(`When token's invalid`, () => {
+    it('returns status 401 and error message', async () => {
+      const res = await chai
+        .request(app)
+        .put('/task/1')
+        .set('authorization', 'invalid token')
+        .send({ title: 'Task 1', status: 'done' });
+
+      expect(res.status).to.equal(401);
+      expect(res.body).to.deep.equal({ message: 'Expired or invalid token' });
+    });
+  });
 });
