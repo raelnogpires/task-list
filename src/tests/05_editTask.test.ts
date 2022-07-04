@@ -21,7 +21,7 @@ import { mockCompleteUser } from './mocks/user.mocks';
 import { generateToken } from '../auth';
 import { mockTaskWithoutStatus, mockTaskWithoutTitle } from './mocks/task.mocks';
 
-describe('05 - Tests updating a created task. PUT /task', () => {
+describe('05 - Tests updating a created task. PUT /task/:id', () => {
   let taskModelStub: sinon.SinonStub;
 
   const token = generateToken(mockCompleteUser.email);
