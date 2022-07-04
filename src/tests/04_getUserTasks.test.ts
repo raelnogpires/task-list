@@ -83,4 +83,27 @@ describe('04 - Tests get all user tasks from DB. GET /task', () => {
       expect(res.body).to.deep.equal({ message: 'User not found' });
     });
   });
+
+  describe(`When token's not provided`, () => {
+    it('returns status 401 and error message', async () => {
+      const res = await chai
+        .request(app)
+        .get('/task');
+
+      expect(res.status).to.equal(401);
+      expect(res.body).to.deep.equal({ message: 'Token not found' });
+    });
+  });
+
+  describe(`When token's invalid`, () => {
+    it('returns status 401 and error message', async () => {
+      const res = await chai
+        .request(app)
+        .get('/task')
+        .set('authorization', 'invalid token');
+
+      expect(res.status).to.equal(401);
+      expect(res.body).to.deep.equal({ message: 'Expired or invalid token' });
+    });
+  });
 });
