@@ -5,6 +5,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import App from '../app';
+
 const { app } = new App();
 
 chai.use(chaiHttp);
